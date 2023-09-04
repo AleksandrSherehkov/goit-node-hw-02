@@ -2,7 +2,7 @@ const express = require('express');
 
 const ctrl = require('../../controllers/contacts');
 const { validateBody } = require('../../decorators');
-const { isValidId } = require('../../middlewares');
+const { isValidId, authenticate } = require('../../middlewares');
 
 const schemas = require('../../schemas/contacts');
 
@@ -11,6 +11,8 @@ const addContactValidate = validateBody(schemas.contactAddSchema);
 const updateContactFavoriteValidate = validateBody(schemas.contactUpdateFavoriteSchema);
 
 const router = express.Router();
+
+router.use(authenticate);
 
 router.get('/', ctrl.getAll);
 
